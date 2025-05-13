@@ -1,9 +1,12 @@
 This pipeline should work with ungzipped fastq files located in directories fastq_R1/ fastq_R2/
-This pipeline should still need genome indexes for human genome/transcriptome made with bowtie or STAR to be put in designated folders
-All genome sequences and gtf file to generate STAR intex were from https://www.gencodegenes.org/human/
+This pipeline should still need genome indexes for human genome/transcriptome made with bowtie or STAR to be put in designated folders.
+
 fasta/index_bowtie_transcriptome/prot_coding_
 fasta/index_bowtie_genome/GRCh38_primary_genome
-fasta/
+fasta/index_masked_genome_star/
+
+All genome sequences and .gtf file to generate STAR intex were from https://www.gencodegenes.org/human/
+
 For transcriptome file I used "gencode.v47.pc_transcripts.fa" and prefix "prot_coding_"
 example code:
 
@@ -20,7 +23,7 @@ Finally STAR generated index of masked genome (same genome file GRCh38.primary_a
 
 $ STAR --runThreadN 16 --runMode genomeGenerate --genomeDir index_masked_genome_star/ --genomeFastaFiles genome/GRCh38.primary_masked_AT_new.fa --sjdbGTFfile genome/gtf/gencode.v47.primary_assembly.basic.annotation.gtf --sjdbOverhang 79 --genomeSAindexNbases 14
 
-To create masked genome I uploaded in OSF bed file that has locations of AT streatches that I identified using custom python script. Link to bed file:
+To create masked genome use bed file that has locations of AT streatches that I identified using custom python script. Link to bed file:
 https://osf.io/x2zeu/files/osfstorage
 
 Once you have it mask the genome using bedtools:
@@ -30,10 +33,14 @@ $ bedtools maskfasta -fi GRCh38.primary_assembly.genome.fa -bed AT_stretches_mer
 
 Next check if you cannot find streatches, for example like this:
 
-grep -n 'TTTTTTTTTTTTTTTTTTTT' GRCh38.primary_masked_AT_new.fa | wc -l
-grep -n 'AAAAAAAAAAAAAAAAAAAA' GRCh38.primary_masked_AT_new.fa | wc -l
-grep -n 'AAAAAAAAAAAAAAAACAAA' GRCh38.primary_masked_AT_new.fa | wc -l
-grep -n 'TTTTGTTTTTTTTTTTTTTT' GRCh38.primary_masked_AT_new.fa | wc -l
+$ grep -n 'TTTTTTTTTTTTTTTTTTTT' GRCh38.primary_masked_AT_new.fa | wc -l
+
+$ grep -n 'AAAAAAAAAAAAAAAAAAAA' GRCh38.primary_masked_AT_new.fa | wc -l
+
+$ grep -n 'AAAAAAAAAAAAAAAACAAA' GRCh38.primary_masked_AT_new.fa | wc -l
+
+$ grep -n 'TTTTGTTTTTTTTTTTTTTT' GRCh38.primary_masked_AT_new.fa | wc -l
+
 
 It should give no hits in masked genome but hits in original genome file.
 
