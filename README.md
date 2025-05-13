@@ -48,7 +48,11 @@ ENVIORNMENT: I did not include conda bits in the snakemake, but this repo contai
 before running use .yaml file to create appropriate enviornment and activate it.
 
 FINALLY Once everything is in its place you should place fastq files in their folders and update config.yaml file to point input file names and sample name.
-Run pipeline with command (-j should be adjusted to the system)
+Run pipeline with command:
+
+$ snakemake R_output/t47_final_small.rds --configfile config.yaml -j 16
+
+(-j should be adjusted to the system)
 For new set of files it should be enough to add new fastq files to the folder and modify config.yaml and execute snakemake line again (please try;)
 
-snakemake R_output/t47_final_small.rds --configfile config.yaml -j 16
+
