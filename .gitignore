@@ -1,0 +1,20 @@
+# Ignore output and intermediate files
+output_tables/
+logs/
+*.log
+*.err
+*.out
+
+# Snakemake-related
+.snakemake/
+*.snakemake
+
+# Python
+__pycache__/
+*.pyc
+fasta/index_bowtie_genome/*
+fasta/index_bowtie_transcriptome/*
+fasta/index_masked_genome_star/*
+!fasta/index_bowtie_genome/.gitkeep
+!fasta/index_bowtie_transcriptome/.gitkeep
+!fasta/index_masked_genome_star/.gitkeep
