@@ -118,7 +118,8 @@ rule tail_analysis:
         tabR2_2 = "R_input/R2_genome_mapped.tsv"
     output:
         big_table = "R_output/{sample}_final_big.rds",
-        small_table = "R_output/{sample}_final_small.rds"
+        small_table = "R_output/{sample}_final_small.rds",
+        deduplication = "R_output/{sample}_deduplication.csv"
     script:
         "R_scripts/run_tail_analysis.R"
 
